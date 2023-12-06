@@ -70,6 +70,8 @@ class Calculadora(object):
         self._create_buttons(self._frame_buttons)
         self._create_menu(self.master)
 
+
+
     @staticmethod
     def _load_settings():
         """Utilitário para carregar o arquivo de confirgurações da calculadora."""
@@ -230,6 +232,7 @@ class Calculadora(object):
         self._BTN_DIV['command'] = partial(self._set_operator_in_input, '/')
         self._BTN_EXP['command'] = partial(self._set_operator_in_input, '**')
         self._BTN_RAIZ['command'] = partial(self._set_operator_in_input, '**(1/2)')
+        
 
 
         # Eventos dos botões de funcionalidades da calculadora
@@ -239,6 +242,29 @@ class Calculadora(object):
         self._BTN_DEL['command'] = self._del_last_value_in_input
         self._BTN_CLEAR['command'] = self._clear_input
         self._BTN_RESULT['command'] = self._get_data_in_input
+
+        # Adicione esta linha para vincular o evento <Return> à função _get_data_in_input
+        self.master.bind('<Return>', lambda event=None: self._get_data_in_input())
+        self.master.bind('1', lambda event=None: self._set_values_in_input(1))
+        self.master.bind('2', lambda event=None: self._set_values_in_input(2))
+        self.master.bind('3', lambda event=None: self._set_values_in_input(3))
+        self.master.bind('4', lambda event=None: self._set_values_in_input(4))
+        self.master.bind('5', lambda event=None: self._set_values_in_input(5))
+        self.master.bind('6', lambda event=None: self._set_values_in_input(6))
+        self.master.bind('7', lambda event=None: self._set_values_in_input(7))
+        self.master.bind('8', lambda event=None: self._set_values_in_input(8))
+        self.master.bind('9', lambda event=None: self._set_values_in_input(9))
+        self.master.bind('0', lambda event=None: self._set_values_in_input(0))
+        self.master.bind('.', lambda event=None: self._set_dot_in_input('.'))
+        self.master.bind('+', lambda event=None: self._set_operator_in_input('+'))
+        self.master.bind('-', lambda event=None: self._set_operator_in_input('-'))
+        self.master.bind('*', lambda event=None: self._set_operator_in_input('*'))
+        self.master.bind('/', lambda event=None: self._set_operator_in_input('/'))
+        self.master.bind('(', lambda event=None: self._set_open_parent())
+        self.master.bind(')', lambda event=None: self._set_close_parent())
+        self.master.bind('<BackSpace>', lambda event=None: self._del_last_value_in_input())
+        self.master.bind('<Delete>', lambda event=None: self._clear_input())
+        
 
     def _set_values_in_input(self, value):
         """Metódo responsável por captar o valor númerico clicado e setar no input"""
